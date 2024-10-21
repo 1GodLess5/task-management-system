@@ -10,10 +10,10 @@ import java.util.List;
 
 @Service
 public class UserServiceJdbcImpl implements UserService {
-    private final UserJdbcRepository userJdbcRepository;
+    private final UserJdbcRepository repository;
 
     public UserServiceJdbcImpl(UserJdbcRepository userJdbcRepository) {
-        this.userJdbcRepository = userJdbcRepository;
+        this.repository = userJdbcRepository;
     }
 
     @Override
@@ -28,11 +28,11 @@ public class UserServiceJdbcImpl implements UserService {
 
     @Override
     public User get(long id) {
-        return null;
+        return repository.getById(id);
     }
 
     @Override
     public List<User> getAll() {
-        return userJdbcRepository.getAll();
+        return repository.getAll();
     }
 }
