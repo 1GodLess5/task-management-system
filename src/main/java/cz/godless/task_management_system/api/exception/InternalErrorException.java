@@ -3,9 +3,9 @@ package cz.godless.task_management_system.api.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String message) {
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+public class InternalErrorException extends RuntimeException {
+    public InternalErrorException(String message) {
         super(message);
     }
 }
