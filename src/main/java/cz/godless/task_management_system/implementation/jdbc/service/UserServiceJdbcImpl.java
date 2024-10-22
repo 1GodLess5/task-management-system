@@ -23,7 +23,7 @@ public class UserServiceJdbcImpl implements UserService {
 
     @Override
     public void delete(long id) {
-
+        repository.delete(id);
     }
 
     @Override
