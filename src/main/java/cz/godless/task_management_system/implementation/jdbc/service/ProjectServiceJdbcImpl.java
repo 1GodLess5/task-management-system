@@ -4,26 +4,40 @@ import cz.godless.task_management_system.api.ProjectService;
 import cz.godless.task_management_system.api.request.ProjectAddRequest;
 import cz.godless.task_management_system.api.request.ProjectEditRequest;
 import cz.godless.task_management_system.domain.Project;
+import cz.godless.task_management_system.implementation.jdbc.repository.ProjectJdbcRepository;
+import cz.godless.task_management_system.implementation.jdbc.repository.UserJdbcRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProjectServiceJdbcImpl implements ProjectService {
+    private final ProjectJdbcRepository projectJdbcRepository;
+    private final UserJdbcRepository userJdbcRepository;
+
+    public ProjectServiceJdbcImpl(ProjectJdbcRepository projectJdbcRepository, UserJdbcRepository userJdbcRepository) {
+        this.projectJdbcRepository = projectJdbcRepository;
+        this.userJdbcRepository = userJdbcRepository;
+    }
 
     @Override
     public Project get(long id) {
-        return null;
+        return projectJdbcRepository.getById(id);
     }
 
     @Override
     public List<Project> getAll() {
-        return List.of();
+        return projectJdbcRepository.getAll();
     }
 
     @Override
     public List<Project> getAllByUser(long userId) {
-        return List.of();
+        if (userJdbcRepository.getById(userId) != null) {
+            return projectJdbcRepository.getAllByUserId(userId);
+        }
+
+        // this can not happen, because if condition above returns null, it will throw exception anyway
+        return null;
     }
 
     @Override
