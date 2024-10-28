@@ -31,6 +31,24 @@ public class UserIntegrationTests extends IntergrationTest {
         insertUser(generateRandomUser());
     }
 
+    @Test
+    public void getUser() {
+        final UserAddRequest request = generateRandomUser();
+        final long id = insertUser(request);
+
+        final ResponseEntity<User> userResponse = restTemplate.getForEntity(
+                "/user/" + id,
+                    User.class
+        );
+        Assertions.assertEquals(HttpStatus.OK, userResponse.getStatusCode());
+        Assertions.assertNotNull(userResponse.getBody());
+
+        final User user = userResponse.getBody();
+        Assertions.assertEquals(id, user.getId());
+        Assertions.assertEquals(request.getName(), user.getName());
+        Assertions.assertEquals(request.getEmail(), user.getEmail());
+    }
+
     private UserAddRequest generateRandomUser() {
         return new UserAddRequest(
                 "name" + Math.random(),
