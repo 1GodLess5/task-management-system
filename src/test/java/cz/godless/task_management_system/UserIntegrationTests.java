@@ -1,5 +1,6 @@
 package cz.godless.task_management_system;
 
+import cz.godless.task_management_system.api.exception.BadRequestException;
 import cz.godless.task_management_system.api.exception.ResourceNotFoundException;
 import cz.godless.task_management_system.api.request.UserAddRequest;
 import cz.godless.task_management_system.domain.User;
@@ -70,6 +71,19 @@ public class UserIntegrationTests extends IntergrationTest {
                 ResourceNotFoundException.class
         );
         Assertions.assertEquals(HttpStatus.NOT_FOUND, getResponse.getStatusCode());
+    }
+
+    @Test
+    public void insertEmailAlreadyExists() {
+        final UserAddRequest request = generateRandomUser();
+        final long id = insertUser(request);
+
+        final ResponseEntity<BadRequestException> badRequest = restTemplate.postForEntity(
+                "/user",
+                request,
+                BadRequestException.class
+        );
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, badRequest.getStatusCode());
     }
 
     private UserAddRequest generateRandomUser() {
