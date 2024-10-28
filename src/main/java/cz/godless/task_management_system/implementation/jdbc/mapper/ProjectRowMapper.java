@@ -2,11 +2,13 @@ package cz.godless.task_management_system.implementation.jdbc.mapper;
 
 import cz.godless.task_management_system.domain.Project;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneOffset;
 
+@Component
 public class ProjectRowMapper implements RowMapper<Project> {
     @Override
     public Project mapRow(ResultSet rs, int rowNum) throws SQLException {
