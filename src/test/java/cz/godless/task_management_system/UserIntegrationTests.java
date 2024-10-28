@@ -1,5 +1,6 @@
 package cz.godless.task_management_system;
 
+import cz.godless.task_management_system.api.exception.ResourceNotFoundException;
 import cz.godless.task_management_system.api.request.UserAddRequest;
 import cz.godless.task_management_system.domain.User;
 import org.junit.jupiter.api.Assertions;
@@ -47,6 +48,28 @@ public class UserIntegrationTests extends IntergrationTest {
         Assertions.assertEquals(id, user.getId());
         Assertions.assertEquals(request.getName(), user.getName());
         Assertions.assertEquals(request.getEmail(), user.getEmail());
+    }
+
+    @Test
+    public void deleteUser() {
+        final UserAddRequest request = generateRandomUser();
+        final long id = insertUser(request);
+
+//        delete user
+        final ResponseEntity<Void> deleteResponse = restTemplate.exchange(
+                "/user/" + id,
+                HttpMethod.DELETE,
+                null,
+                Void.class
+        );
+        Assertions.assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
+
+//        deleted user should not be found
+        final ResponseEntity<ResourceNotFoundException> getResponse = restTemplate.getForEntity(
+                "/user/" + id,
+                ResourceNotFoundException.class
+        );
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, getResponse.getStatusCode());
     }
 
     private UserAddRequest generateRandomUser() {
