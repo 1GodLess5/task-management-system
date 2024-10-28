@@ -1,11 +1,16 @@
 package cz.godless.task_management_system.implementation.jdbc.repository;
 
 import cz.godless.task_management_system.api.ProjectService;
+import cz.godless.task_management_system.api.exception.InternalErrorException;
+import cz.godless.task_management_system.domain.Project;
 import cz.godless.task_management_system.implementation.jdbc.mapper.ProjectRowMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ProjectJdbcRepository {
@@ -27,5 +32,14 @@ public class ProjectJdbcRepository {
     public ProjectJdbcRepository(JdbcTemplate jdbcTemplate, ProjectRowMapper rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.rowMapper = rowMapper;
+    }
+
+    public List<Project> getAll() {
+        try {
+            return jdbcTemplate.query(GET_ALL, rowMapper);
+        } catch (DataAccessException e) {
+            logger.error("Error while getting all projects", e);
+            throw new InternalErrorException("Error while getting all projects");
+        }
     }
 }
