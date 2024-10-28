@@ -42,16 +42,21 @@ public class ProjectServiceJdbcImpl implements ProjectService {
 
     @Override
     public void delete(long id) {
-
+        if (this.get(id) != null) {
+            projectJdbcRepository.delete(id);
+            // TODO delete all tasks in this project
+        }
     }
 
     @Override
     public long add(ProjectAddRequest request) {
-        return 0;
+        return projectJdbcRepository.add(request);
     }
 
     @Override
     public void edit(long id, ProjectEditRequest request) {
-
+        if (this.get(id) != null) {
+            projectJdbcRepository.update(request);
+        }
     }
 }
