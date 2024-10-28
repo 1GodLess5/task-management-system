@@ -50,8 +50,17 @@ public class ProjectJdbcRepository {
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Project with ID " + id + " was not found");
         } catch (DataAccessException e) {
-            logger.error("Error while getting project with ID " + id, e);
+            logger.error("Error while getting project with ID {}", id, e);
             throw new InternalErrorException("Error while getting project with ID " + id);
+        }
+    }
+
+    public List<Project> getAllByUserId(long userId) {
+        try {
+            return jdbcTemplate.query(GET_ALL_BY_USER, rowMapper, userId);
+        } catch (DataAccessException e) {
+            logger.error("Error while getting projects with user ID {}", userId, e);
+            throw new InternalErrorException("Error while getting projects with user ID " + userId);
         }
     }
 }
