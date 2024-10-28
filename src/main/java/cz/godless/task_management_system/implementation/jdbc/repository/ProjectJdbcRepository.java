@@ -1,6 +1,5 @@
 package cz.godless.task_management_system.implementation.jdbc.repository;
 
-import cz.godless.task_management_system.api.ProjectService;
 import cz.godless.task_management_system.api.exception.InternalErrorException;
 import cz.godless.task_management_system.api.exception.ResourceNotFoundException;
 import cz.godless.task_management_system.domain.Project;

@@ -4,7 +4,6 @@ import cz.godless.task_management_system.api.ProjectService;
 import cz.godless.task_management_system.api.request.ProjectAddRequest;
 import cz.godless.task_management_system.api.request.ProjectEditRequest;
 import cz.godless.task_management_system.domain.Project;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
