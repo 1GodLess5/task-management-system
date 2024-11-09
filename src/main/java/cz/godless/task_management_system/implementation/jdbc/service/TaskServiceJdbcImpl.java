@@ -3,8 +3,10 @@ package cz.godless.task_management_system.implementation.jdbc.service;
 import cz.godless.task_management_system.api.ProjectService;
 import cz.godless.task_management_system.api.TaskService;
 import cz.godless.task_management_system.api.UserService;
+import cz.godless.task_management_system.api.exception.BadRequestException;
 import cz.godless.task_management_system.api.request.TaskAddRequest;
 import cz.godless.task_management_system.api.request.TaskEditRequest;
+import cz.godless.task_management_system.domain.Project;
 import cz.godless.task_management_system.domain.Task;
 import cz.godless.task_management_system.domain.TaskStatus;
 import cz.godless.task_management_system.implementation.jdbc.repository.TaskJdbcRepository;
@@ -24,27 +26,41 @@ public class TaskServiceJdbcImpl implements TaskService {
 
     @Override
     public long add(TaskAddRequest request) {
-        return 0;
+        return taskJdbcRepository.add(request);
     }
 
     @Override
     public void edit(long id, TaskEditRequest request) {
-
+        if (this.get(id) != null) {
+            taskJdbcRepository.update(id, request);
+        }
     }
 
     @Override
     public void changeStatus(long id, TaskStatus status) {
-
+        if (this.get(id) != null) {
+            taskJdbcRepository.updateStatus(id, status);
+        }
     }
 
     @Override
     public void assignProject(long taskId, long projectId) {
+        final Task task = this.get(taskId);
+        final Project project = projectService.get(projectId);
 
+        if (task != null && project != null) {
+            if (task.getUserId() != project.getUserId()) {
+                throw new BadRequestException("Task and project must belong to the same user");
+            }
+            taskJdbcRepository.updateProject(taskId, projectId);
+        }
     }
 
     @Override
     public void delete(long id) {
-
+        if (this.get(id) != null) {
+            taskJdbcRepository.delete(id);
+        }
     }
 
     @Override
