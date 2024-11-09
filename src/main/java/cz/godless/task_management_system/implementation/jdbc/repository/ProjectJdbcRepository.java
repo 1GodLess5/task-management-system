@@ -110,14 +110,15 @@ public class ProjectJdbcRepository {
         }
     }
 
-    public void update(ProjectEditRequest projectEditRequest) {
+    public void update(long id, ProjectEditRequest request) {
         try {
-            jdbcTemplate.update(UPDATE, projectEditRequest);
+            jdbcTemplate.update(UPDATE, request.getName(), request.getDescription(), id);
         } catch (DataAccessException e) {
-            logger.error("Error while updating project" , e);
+            logger.error("Error while updating project", e);
             throw new InternalErrorException("Error while updating project");
         }
     }
+
 
     public void delete(long id) {
         try {
