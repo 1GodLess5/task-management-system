@@ -1,14 +1,27 @@
 package cz.godless.task_management_system.implementation.jdbc.service;
 
+import cz.godless.task_management_system.api.ProjectService;
 import cz.godless.task_management_system.api.TaskService;
+import cz.godless.task_management_system.api.UserService;
 import cz.godless.task_management_system.api.request.TaskAddRequest;
 import cz.godless.task_management_system.api.request.TaskEditRequest;
 import cz.godless.task_management_system.domain.Task;
 import cz.godless.task_management_system.domain.TaskStatus;
+import cz.godless.task_management_system.implementation.jdbc.repository.TaskJdbcRepository;
 
 import java.util.List;
 
 public class TaskServiceJdbcImpl implements TaskService {
+    private final TaskJdbcRepository taskJdbcRepository;
+    private final UserService userService;
+    private final ProjectService projectService;
+
+    public TaskServiceJdbcImpl(TaskJdbcRepository taskJdbcRepository, UserService userService, ProjectService projectService) {
+        this.taskJdbcRepository = taskJdbcRepository;
+        this.userService = userService;
+        this.projectService = projectService;
+    }
+
     @Override
     public long add(TaskAddRequest request) {
         return 0;
@@ -36,21 +49,27 @@ public class TaskServiceJdbcImpl implements TaskService {
 
     @Override
     public Task get(long id) {
-        return null;
+        return taskJdbcRepository.getById(id);
     }
 
     @Override
     public List<Task> getAll() {
-        return List.of();
+        return taskJdbcRepository.getAll();
     }
 
     @Override
     public List<Task> getAllByUserId(long userId) {
-        return List.of();
+        if (userService.get(userId) != null) {
+            return taskJdbcRepository.getAllByUser(userId);
+        }
+        return null;
     }
 
     @Override
     public List<Task> getAllByProjectId(long projectId) {
-        return List.of();
+        if (projectService.get(projectId) != null) {
+            return taskJdbcRepository.getAllByProject(projectId);
+        }
+        return null;
     }
 }
