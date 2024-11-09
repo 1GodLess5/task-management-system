@@ -6,7 +6,6 @@ import cz.godless.task_management_system.api.request.ProjectEditRequest;
 import cz.godless.task_management_system.domain.Project;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
