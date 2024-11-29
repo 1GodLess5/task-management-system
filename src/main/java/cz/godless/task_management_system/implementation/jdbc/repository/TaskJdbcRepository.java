@@ -38,6 +38,8 @@ public class TaskJdbcRepository {
     private static final String UPDATE_STATUS;
     private static final String UPDATE_PROJECT;
     private static final String DELETE;
+    private static final String DELETE_ALL_BY_USER;
+    private static final String DELETE_ALL_BY_PROJECT;
 
     static {
         logger = LoggerFactory.getLogger(TaskJdbcRepository.class);
@@ -50,6 +52,8 @@ public class TaskJdbcRepository {
         UPDATE_STATUS = "UPDATE task SET status = ? WHERE id = ?";
         UPDATE_PROJECT = "UPDATE task SET project_id = ? WHERE id = ?";
         DELETE = "DELETE FROM task WHERE id = ?";
+        DELETE_ALL_BY_USER = "DELETE FROM task WHERE user_id = ?";
+        DELETE_ALL_BY_PROJECT = "DELETE FROM task WHERE project_id = ?";
     }
 
     public TaskJdbcRepository(JdbcTemplate jdbcTemplate, TaskRowMapper taskRowMapper) {
@@ -144,6 +148,24 @@ public class TaskJdbcRepository {
         } catch (DataAccessException e) {
             logger.error("Error while deleting task", e);
             throw new InternalErrorException("Error while deleting task");
+        }
+    }
+
+    public void deleteAllByUser(long userId) {
+        try {
+            jdbcTemplate.update(DELETE_ALL_BY_USER, userId);
+        } catch (DataAccessException e) {
+            logger.error("Error while deleting all tasks by user", e);
+            throw new InternalErrorException("Error while deleting all tasks by user");
+        }
+    }
+
+    public void deleteAllByProject(long projectId) {
+        try {
+            jdbcTemplate.update(DELETE_ALL_BY_PROJECT, projectId);
+        } catch (DataAccessException e) {
+            logger.error("Error while deleting all tasks by project", e);
+            throw new InternalErrorException("Error while deleting all tasks by project");
         }
     }
 

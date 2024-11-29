@@ -35,7 +35,6 @@ public class UserController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") long id) {
-        // TODO remove all projects and tasks with this user
         userService.delete(id);
         return ResponseEntity.ok().build();
     }
