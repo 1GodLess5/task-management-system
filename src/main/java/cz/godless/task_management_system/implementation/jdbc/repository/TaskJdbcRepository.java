@@ -28,12 +28,6 @@ public class TaskJdbcRepository {
     private final JdbcTemplate jdbcTemplate;
     private final TaskRowMapper taskRowMapper;
 
-
-    public TaskJdbcRepository(JdbcTemplate jdbcTemplate, TaskRowMapper taskRowMapper) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.taskRowMapper = taskRowMapper;
-    }
-
     private static final Logger logger;
     private static final String GET_ALL;
     private static final String GET_BY_ID;
@@ -56,6 +50,11 @@ public class TaskJdbcRepository {
         UPDATE_STATUS = "UPDATE task SET status = ? WHERE id = ?";
         UPDATE_PROJECT = "UPDATE task SET project_id = ? WHERE id = ?";
         DELETE = "DELETE FROM task WHERE id = ?";
+    }
+
+    public TaskJdbcRepository(JdbcTemplate jdbcTemplate, TaskRowMapper taskRowMapper) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.taskRowMapper = taskRowMapper;
     }
 
     public List<Task> getAll() {

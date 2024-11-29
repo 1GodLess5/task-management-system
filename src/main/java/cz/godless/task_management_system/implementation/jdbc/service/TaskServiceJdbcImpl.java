@@ -10,9 +10,11 @@ import cz.godless.task_management_system.domain.Project;
 import cz.godless.task_management_system.domain.Task;
 import cz.godless.task_management_system.domain.TaskStatus;
 import cz.godless.task_management_system.implementation.jdbc.repository.TaskJdbcRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TaskServiceJdbcImpl implements TaskService {
     private final TaskJdbcRepository taskJdbcRepository;
     private final UserService userService;
