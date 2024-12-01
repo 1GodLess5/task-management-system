@@ -25,9 +25,11 @@ public class TaskEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
+    @Setter
     private ProjectEntity project;
 
     @Column(nullable = false)
+    @Setter
     private String name;
 
     @Column
