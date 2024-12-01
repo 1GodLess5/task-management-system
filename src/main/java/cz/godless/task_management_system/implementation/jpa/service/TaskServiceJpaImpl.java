@@ -19,6 +19,7 @@ import cz.godless.task_management_system.implementation.jpa.repository.TaskJpaRe
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
-@Primary
+@Profile("jpa")
 public class TaskServiceJpaImpl implements TaskService {
     private final TaskJpaRepository repository;
     private final ProjectService projectService;
