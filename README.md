@@ -22,6 +22,7 @@ The Task Management System is a backend service for managing projects and tasks.
 - **JPA / JDBC**
 - **Maven**
 - **JUnit**
+- - **H2 Database**
 
 ---
 
