@@ -39,7 +39,7 @@ https://task-management-system-production-299b.up.railway.app/swagger-ui/index.h
 - **Maven**
 - **JUnit**
 - **H2 Database** - for development
-- **H2 PostgreSQL** - production
+- **PostgreSQL** - production
 - **Railway**
 
 ---
