@@ -4,8 +4,8 @@ create sequence task_id_seq start with 1 increment by 1;
 
 -- id, name, email
 INSERT INTO users VALUES
-                        (next value for user_id_seq, 'Jan Novák', 'jan.novak@gmail.com'),
-                        (next value for user_id_seq, 'Jakub Svoboda', 'jakub.svoboda@gmail.com');
+                      (next value for user_id_seq, 'Jan Novák', 'jan.novak@gmail.com'),
+                      (next value for user_id_seq, 'Jakub Svoboda', 'jakub.svoboda@gmail.com');
 -- id, user_id, name, description, created_at
 INSERT INTO project VALUES
                         (next value for project_id_seq, 1, 'Honzuv projekt', 'Tasky v praci', CURRENT_TIMESTAMP),
