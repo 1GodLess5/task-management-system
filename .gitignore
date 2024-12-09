@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Database Details ###
+src/main/resources/secrets.properties
+### Flyway Configuration ###
+flyway.conf
